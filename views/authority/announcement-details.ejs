@@ -1,0 +1,40 @@
+<%- include('../partials/head', { title: 'Announcement Details' }) %>
+
+<div class="layout">
+  <%- include('../partials/sidebar', { user }) %>
+
+  <main class="main">
+
+    <div class="announcement-detail">
+
+      <h1><%= announcement.title %></h1>
+
+      <div class="meta">
+        By <strong><%= announcement.authorName %></strong>
+        (<%= announcement.authorRole %>) • 
+        <%= new Date(announcement.createdAt).toDateString() %>
+      </div>
+
+      <div class="desc">
+        <%= announcement.description %>
+      </div>
+
+      <% if (announcement.proof) { %>
+        <a href="<%= announcement.proof %>" download class="download-btn">
+          📥 Download Proof
+        </a>
+      <% } %>
+
+      <!-- BACK BUTTON -->
+      <div style="margin-top: 24px;">
+        <a href="/authority/announcements" class="btn-secondary">
+          ← Back to Announcements
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

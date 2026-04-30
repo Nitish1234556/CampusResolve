@@ -1,0 +1,57 @@
+<%- include('../partials/head', { title: 'Notifications' }) %>
+
+<div class="layout">
+
+  <%- include('../partials/sidebar', { user, active:'notifications' }) %>
+
+  <main class="main">
+
+    <div class="page-header">
+      <h1>Notifications</h1>
+      <p>Latest updates about your submitted issues</p>
+    </div>
+
+    <% if(notifications && notifications.length){ %>
+
+      <div class="notification-container">
+
+        <% notifications.forEach(n => { %>
+
+          <a href="<%= n.link %>" class="notification-card">
+
+            <div class="notification-left">
+              <i class="ri-notification-3-line"></i>
+            </div>
+
+            <div class="notification-content">
+
+              <p class="notification-text">
+                <%= n.message %>
+              </p>
+
+              <% if(n.isNew){ %>
+                <span class="notification-badge">NEW</span>
+              <% } %>
+
+            </div>
+
+          </a>
+
+        <% }) %>
+
+      </div>
+
+    <% } else { %>
+
+      <div class="empty-state">
+        <i class="ri-notification-3-line"></i>
+        <h3>No Notifications</h3>
+      </div>
+
+    <% } %>
+
+  </main>
+
+</div>
+
+<%- include('../partials/footer') %>

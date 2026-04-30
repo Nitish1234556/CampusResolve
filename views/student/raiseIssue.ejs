@@ -1,0 +1,90 @@
+<%- include('../partials/layout', {
+  title: 'Raise Issue',
+  user,
+  body: `
+    <div class="page-header">
+      <h1>Raise New Issue</h1>
+      <p>Submit your concern for tracking and resolution</p>
+    </div>
+
+    <form method="POST" action="/issues/create" enctype="multipart/form-data">
+
+      <div class="card">
+        <h3>Issue Details</h3>
+
+        <label>Issue Title</label>
+        <input 
+          type="text" 
+          name="title" 
+          required 
+          placeholder="Short summary of the issue"
+        />
+
+        <label>Category</label>
+        <select name="category" required>
+          <option value="">Select category</option>
+          <option>Hostel</option>
+          <option>Academics</option>
+          <option>Lab</option>
+          <option>Infrastructure</option>
+        </select>
+
+        <label>Sub-Category (optional)</label>
+        <input 
+          type="text" 
+          name="subCategory" 
+          placeholder="Water, Attendance, Internet..."
+        />
+
+        <label>Description</label>
+        <textarea 
+          name="description" 
+          required
+          placeholder="Explain the issue clearly.
+• What is the problem?
+• Where did it occur?
+• Since when?"
+        ></textarea>
+      </div>
+
+      <div class="card">
+        <h3>Additional Information</h3>
+
+        <label>Priority</label>
+        <select name="priority">
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+          <option>Critical</option>
+        </select>
+
+        <label>Location (optional)</label>
+        <input 
+          type="text" 
+          name="location" 
+          placeholder="Room no / Lab / Building"
+        />
+      </div>
+
+      <div class="card">
+        <h3>Attachment (Optional)</h3>
+        <input 
+          type="file" 
+          name="attachment" 
+          accept="image/*,video/*"
+        />
+        <small>Upload image/video if available</small>
+      </div>
+
+      <div class="card submit-card">
+        <button class="btn-primary" type="submit">
+          Submit Issue
+        </button>
+        <p class="info-text">
+          You will be able to track the status after submission.
+        </p>
+      </div>
+
+    </form>
+  `
+}) %>

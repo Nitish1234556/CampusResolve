@@ -1,0 +1,58 @@
+<%- include('../partials/head', { title: 'Announcements' }) %>
+
+<div class="layout">
+  <%- include('../partials/sidebar', { user }) %>
+
+  <main class="main">
+
+    <h1>📢 Announcements</h1>
+
+    <!-- CREATE FORM -->
+    <form action="/authority/announcements/create" method="POST" enctype="multipart/form-data" class="form-card">
+      
+      <input type="text" name="title" placeholder="Enter heading" required />
+
+      <textarea name="description" placeholder="Enter description" required></textarea>
+
+      <input type="file" name="proof" />
+
+      <button type="submit" class="btn-primary">Make Announcement</button>
+    </form>
+
+    <!-- LIST -->
+    <% if (!announcements || announcements.length === 0) { %>
+      <div class="empty-state">
+        <i class="ri-megaphone-line"></i>
+        <h3>No Announcements</h3>
+      </div>
+    <% } %>
+
+    <% announcements.forEach(a => { %>
+      <div class="announcement-card">
+
+        <div class="announcement-left">
+          <h3><%= a.title %></h3>
+
+          <div class="announcement-meta">
+            By <strong><%= a.authorName %></strong>
+            <span class="announcement-role"><%= a.authorRole %></span>
+          </div>
+
+          <div class="announcement-date">
+            <%= new Date(a.createdAt).toDateString() %>
+          </div>
+        </div>
+
+        <div class="announcement-actions">
+          <a href="/authority/announcements/<%= a._id %>" class="btn-secondary">
+            View Details
+          </a>
+        </div>
+
+      </div>
+    <% }) %>
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

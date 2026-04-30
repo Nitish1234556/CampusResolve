@@ -1,0 +1,181 @@
+<%- include('../partials/layout', {
+title: 'Issue Details',
+user,
+active: 'issues',
+body: `
+
+<div class="issue-layout">
+
+  <!-- LEFT SIDE -->
+  <div class="issue-left">
+
+    <!-- ISSUE DETAILS -->
+    <div class="detail-card issue-summary">
+
+      <div class="summary-header">
+        <h2>${issue.title || issue.category}</h2>
+
+        <span class="status ${issue.status.toLowerCase()}">
+          ${issue.status}
+        </span>
+      </div>
+
+      <p class="category">
+        <strong>Category:</strong> ${issue.category}
+        ${issue.subCategory ? ' • ' + issue.subCategory : ''}
+      </p>
+
+      <p class="issue-desc">
+        ${issue.description}
+      </p>
+
+      <div class="issue-meta">
+        <span><strong>Priority:</strong> ${issue.priority}</span>
+        <span class="dot">•</span>
+        <span><strong>Location:</strong> ${issue.location || 'N/A'}</span>
+        <span class="dot">•</span>
+        <span><strong>Created:</strong> ${new Date(issue.createdAt).toDateString()}</span>
+      </div>
+      ${
+        issue.attachment
+          ? '<div class="attachment-download">' +
+              '<strong>Student Attachment:</strong> ' +
+              '<a href="/uploads/' + issue.attachment + '" download class="btn-secondary">' +
+              'Download Attachment' +
+              '</a>' +
+            '</div>'
+          : ''
+      }
+
+    </div>
+
+
+    <!-- CONVERSATION -->
+    <div class="detail-card">
+
+      <h3>Conversation</h3>
+
+      <div class="chat-box">
+
+        ${
+          issue.messages && issue.messages.length
+            ? issue.messages.map(function(m){
+                return '<div class="chat-message">' +
+                       '<div class="chat-header">' +
+                       '<strong>' + m.senderName + '</strong>' +
+                       '<small>' + new Date(m.date).toLocaleString() + '</small>' +
+                       '</div>' +
+                       '<p>' + m.text + '</p>' +
+                       '</div>';
+              }).join('')
+            : '<p class="muted">No conversation yet.</p>'
+        }
+
+      </div>
+
+
+      <!-- REPLY BOX -->
+      <form
+        method="POST"
+        action="/issues/${issue._id}/reply"
+        class="reply-form"
+      >
+
+        <textarea
+          name="message"
+          placeholder="Write a reply..."
+          required
+        ></textarea>
+
+        <button class="btn-action">
+          Reply
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- RIGHT SIDE -->
+  <div class="issue-right">
+
+    <!-- TIMELINE -->
+    <div class="detail-card">
+
+      <h3>Activity Timeline</h3>
+
+      <ul class="timeline">
+
+        ${
+          issue.timeline.map(function(step){
+            return '<li>' +
+                     '<span class="dot"></span>' +
+                     '<div class="timeline-content">' +
+                       '<p>' + step.action + '</p>' +
+                       '<small>by ' + step.by + ' • ' +
+                       new Date(step.date).toLocaleString() +
+                       '</small>' +
+                     '</div>' +
+                   '</li>';
+          }).join('')
+        }
+
+      </ul>
+
+    </div>
+
+
+
+    <!-- RESOLUTION -->
+    <div class="detail-card">
+
+      <h3>Resolution</h3>
+
+      <div class="resolution-meta">
+
+        <span>
+          <strong>Status:</strong>
+          <span class="status ${issue.status.toLowerCase()}">
+            ${issue.status}
+          </span>
+        </span>
+
+        <span>
+          <strong>Currently With:</strong>
+          ${
+            issue.currentHandler === 'closed'
+              ? '<span class="tag closed">Closed</span>'
+              : issue.currentHandler
+          }
+        </span>
+
+      </div>
+
+      ${
+        issue.resolution && issue.resolution.comment
+          ? '<div class="resolution-text"><strong>Remarks</strong><p>' + issue.resolution.comment + '</p></div>'
+          : '<div class="resolution-text muted">No remarks yet.</div>'
+      }
+
+      ${
+        issue.resolution && issue.resolution.proof
+          ? '<div class="attachment-download">' +
+              '<strong>Resolution Proof:</strong> ' +
+              '<a href="' + issue.resolution.proof + '" download class="btn-secondary">' +
+              'Download Proof' +
+              '</a>' +
+            '</div>'
+          : ''
+      }
+
+    </div>
+
+  </div>
+
+</div>
+
+`
+}) %>

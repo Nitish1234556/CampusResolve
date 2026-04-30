@@ -1,0 +1,257 @@
+<%- include('../partials/head', { title: 'Issue Details' }) %>
+
+<div class="layout">
+  <%- include('../partials/sidebar', { user, active: 'inbox' }) %>
+
+  <main class="main">
+
+    <div class="page-header">
+      <h1>Issue Details</h1>
+      <p>Submitted by <strong><%= issue.studentName %></strong></p>
+    </div>
+
+    <div class="issue-layout">
+
+      <!-- LEFT -->
+      <div class="issue-left">
+
+        <!-- ISSUE DETAILS -->
+        <div class="detail-card issue-summary">
+
+          <div class="summary-header">
+            <h2><%= issue.title || issue.category %></h2>
+
+            <span class="status <%= issue.status.toLowerCase() %>">
+              <%= issue.status %>
+            </span>
+          </div>
+
+          <p class="category">
+            <strong>Category:</strong> <%= issue.category %>
+          </p>
+
+          <p class="issue-desc">
+            <%= issue.description %>
+          </p>
+
+          <div class="issue-meta">
+
+            <span>
+              <strong>Priority:</strong> <%= issue.priority %>
+            </span>
+
+            <span class="dot">•</span>
+
+            <span>
+              <strong>Currently With:</strong>
+              <span class="pill"><%= issue.currentHandler %></span>
+            </span>
+
+            <span class="dot">•</span>
+
+            <span>
+              <strong>Created:</strong>
+              <%= new Date(issue.createdAt).toDateString() %>
+            </span>
+
+          </div>
+
+          <% if(issue.attachment){ %>
+
+            <div class="attachment-download">
+
+            <strong>Student Attachment:</strong>
+
+            <a
+                href="/uploads/<%= issue.attachment %>"
+                download
+                class="btn-secondary"
+            >
+                Download Attachment
+            </a>
+
+            </div>
+
+            <% } %>
+
+        </div>
+
+
+        <!-- CONVERSATION -->
+        <div class="detail-card">
+
+          <h3>Conversation</h3>
+
+          <div class="chat-box">
+
+            <% if(issue.messages && issue.messages.length){ %>
+
+              <% issue.messages.forEach(m => { %>
+
+                <div class="chat-message">
+
+                  <div class="chat-header">
+                    <strong><%= m.senderName %></strong>
+
+                    <small>
+                      <%= new Date(m.date).toLocaleString() %>
+                    </small>
+                  </div>
+
+                  <p><%= m.text %></p>
+
+                </div>
+
+              <% }) %>
+
+            <% } else { %>
+
+              <p class="muted">No conversation yet.</p>
+
+            <% } %>
+
+          </div>
+
+
+          <!-- REPLY BOX -->
+          <form
+            method="POST"
+            action="/authority/issue/<%= issue._id %>/reply"
+            class="reply-form"
+          >
+
+            <textarea
+              name="message"
+              placeholder="Write a reply..."
+              required
+            ></textarea>
+
+            <button class="btn-action">
+              Reply
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- RIGHT -->
+      <div class="issue-right">
+
+        <!-- TIMELINE -->
+        <div class="detail-card">
+
+          <h3>Activity Timeline</h3>
+
+          <ul class="timeline">
+
+            <% issue.timeline.forEach(t => { %>
+
+              <li>
+                <span class="dot"></span>
+
+                <div class="timeline-content">
+
+                  <p><%= t.action %></p>
+
+                  <small>
+                    By <%= t.by %> •
+                    <%= new Date(t.date).toDateString() %>
+                  </small>
+
+                </div>
+              </li>
+
+            <% }) %>
+
+          </ul>
+
+        </div>
+
+
+
+        <!-- RESOLUTION -->
+        <div class="detail-card">
+
+          <h3>Resolution</h3>
+
+          <% if(issue.resolution && issue.resolution.comment){ %>
+
+            <div class="resolution-text">
+              <strong>Remarks</strong>
+              <p><%= issue.resolution.comment %></p>
+            </div>
+
+          <% } else { %>
+
+            <div class="resolution-text muted">
+              No remarks yet.
+            </div>
+
+          <% } %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ACTION PANEL -->
+    <div class="action-panel">
+
+      <a
+        href="/authority/issue/<%= issue._id %>/approve"
+        class="btn-action btn-approve"
+      >
+        ✔ Approve Issue
+      </a>
+
+      <a
+        href="/authority/issue/<%= issue._id %>/reject"
+        class="btn-action btn-reject"
+      >
+        ✖ Reject Issue
+      </a>
+
+      <form
+        method="POST"
+        action="/authority/issue/<%= issue._id %>/forward"
+        class="forward-form"
+      >
+
+        <select name="authority" required>
+          <option value="">Forward to</option>
+
+          <% ["warden","advisor","hod","dean"].forEach(r => { %>
+            <% if (r !== user.role) { %>
+
+              <option value="<%= r %>">
+                <%= r.toUpperCase() %>
+              </option>
+
+            <% } %>
+          <% }) %>
+
+        </select>
+
+        <button class="btn-action btn-forward">
+          ➜ Forward
+        </button>
+
+      </form>
+
+      <a href="/authority/inbox" class="btn-secondary">
+        ← Back to Inbox
+      </a>
+
+    </div>
+
+  </main>
+
+</div>
+
+<%- include('../partials/footer') %>

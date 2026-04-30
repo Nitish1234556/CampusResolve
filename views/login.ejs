@@ -1,0 +1,45 @@
+<%- include('partials/head', { title: 'Login' }) %>
+
+<div class="auth-page">
+  <!-- LEFT VISUAL -->
+  <div class="auth-visual">
+    <div class="visual-overlay">
+      <div class="visual-content">
+        <h2>CampusResolve</h2>
+        <p>Transparent Issue Resolution System</p>
+        <span>Track • Resolve • Improve</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="auth-form-wrapper">
+    <a href="/" class="back-link">← Back to website</a>
+
+    <div class="auth-card">
+      <h1>Sign in</h1>
+      <p class="muted-text">Access your student dashboard</p>
+
+      <form method="POST" action="/login">
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" name="email" required />
+        </div>
+
+        <div class="auth-field">
+          <label>Password</label>
+          <input type="password" name="password" required />
+        </div>
+
+        <button type="submit" class="auth-btn">Sign In</button>
+      </form>
+
+      <p class="auth-link">
+        Don’t have an account?
+        <a href="/register">Register as Student</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

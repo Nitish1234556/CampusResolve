@@ -1,0 +1,190 @@
+<%- include('../partials/head', { title: mode === 'reject' ? 'Reject Issue' : 'Approve Issue' }) %>
+
+<div class="layout">
+
+  <%- include('../partials/sidebar', { user }) %>
+
+  <main class="main">
+
+    <div class="issue-layout">
+
+      <!-- ================= LEFT ================= -->
+      <div class="issue-left">
+
+        <!-- ISSUE DETAILS -->
+        <div class="detail-card issue-summary">
+
+          <div class="summary-header">
+            <h2><%= issue.title || issue.category %></h2>
+
+            <span class="status <%= issue.status.toLowerCase() %>">
+              <%= issue.status %>
+            </span>
+          </div>
+
+          <p class="category">
+            <strong>Category:</strong> <%= issue.category %>
+          </p>
+
+          <p class="issue-desc">
+            <%= issue.description %>
+          </p>
+
+          <div class="issue-meta">
+
+            <span>
+              <strong>Priority:</strong> <%= issue.priority %>
+            </span>
+
+            <span class="dot">•</span>
+
+            <span>
+              <strong>Currently With:</strong>
+              <span class="pill"><%= issue.currentHandler %></span>
+            </span>
+
+            <span class="dot">•</span>
+
+            <span>
+              <strong>Created:</strong>
+              <%= new Date(issue.createdAt).toDateString() %>
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- CONVERSATION -->
+        <div class="detail-card">
+
+          <h3>Conversation</h3>
+
+          <div class="chat-box">
+
+            <% if(issue.messages && issue.messages.length){ %>
+
+              <% issue.messages.forEach(m => { %>
+
+                <div class="chat-message">
+
+                  <div class="chat-header">
+                    <strong><%= m.senderName %></strong>
+
+                    <small>
+                      <%= new Date(m.date).toLocaleString() %>
+                    </small>
+                  </div>
+
+                  <p><%= m.text %></p>
+
+                </div>
+
+              <% }) %>
+
+            <% } else { %>
+
+              <p class="muted">No conversation yet.</p>
+
+            <% } %>
+
+          </div>
+
+
+          <!-- REPLY -->
+          <form
+            method="POST"
+            action="/authority/issue/<%= issue._id %>/reply"
+            class="reply-form"
+          >
+
+            <textarea
+              name="message"
+              placeholder="Write a reply..."
+              required
+            ></textarea>
+
+            <button class="btn-action">
+              Reply
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ================= RIGHT ================= -->
+      <div class="issue-right">
+
+        <div class="detail-card resolution-panel">
+
+          <h3>
+            <%= mode === 'reject' ? 'Rejection Reason' : 'Resolution Details' %>
+          </h3>
+
+          <form
+            method="POST"
+            action="<%= basePath %>/issue/<%= issue._id %>/<%= mode === 'reject' ? 'reject' : 'approve' %>"
+            enctype="multipart/form-data"
+          >
+
+            <label>
+              Comment
+            </label>
+
+            <textarea
+              name="comment"
+              required
+              placeholder="<%= mode === 'reject'
+                ? 'Explain clearly why this issue is rejected...'
+                : 'Describe the resolution taken for this issue...' %>"
+            ></textarea>
+
+
+            <label style="margin-top:12px;">
+              Upload Proof
+              <span class="muted">(optional)</span>
+            </label>
+
+            <input
+              type="file"
+              name="proof"
+              accept="image/*,video/*"
+            />
+
+
+            <div class="action-buttons">
+
+              <button
+                type="submit"
+                class="btn-action"
+                style="background:<%= mode === 'reject' ? '#ef4444' : '#22c55e' %>"
+              >
+                <%= mode === 'reject' ? 'Reject Issue' : 'Approve Issue' %>
+              </button>
+
+              <a
+                href="<%= basePath %>/inbox"
+                class="btn-secondary"
+              >
+                Go Back
+              </a>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<%- include('../partials/footer') %>

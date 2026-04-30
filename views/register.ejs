@@ -1,0 +1,70 @@
+<%- include('partials/head', { title: 'Student Registration' }) %>
+
+<div class="auth-page">
+
+  <!-- LEFT VISUAL -->
+  <div class="auth-visual">
+    <div class="visual-overlay">
+      <div class="visual-content">
+        <h2>CampusResolve</h2>
+        <p>Student Issue Management System</p>
+        <span>Register • Raise Issues • Track Status</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="auth-form-wrapper">
+    <a href="/" class="back-link">← Back to website</a>
+
+    <div class="auth-card">
+      <h1>Register</h1>
+      <p class="muted-text">Create your student account</p>
+
+      <form method="POST" action="/register">
+
+        <div class="auth-field">
+          <label>Full Name</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+
+        <div class="auth-field">
+          <label>Email Address</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="student@campus.com"
+            required
+          />
+        </div>
+
+        <div class="auth-field">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Create password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="auth-btn">
+          Register
+        </button>
+      </form>
+
+      <p class="auth-link">
+        Already have an account?
+        <a href="/login">Login</a>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,80 @@
+<%- include('../partials/head', { title: 'Manage Authorities' }) %>
+
+<div class="layout">
+  <%- include('../partials/sidebar', { user, active: 'authorities' }) %>
+
+  <main class="main">
+
+    <div class="page-header">
+      <h1>Manage Authorities</h1>
+      <p>Create and manage authority accounts</p>
+    </div>
+
+    <div class="authority-top">
+
+      <div class="authority-add">
+        <form method="POST"
+              action="/admin/manage-authorities"
+              class="form-card authority-form">
+
+          <h3>Add New Authority</h3>
+
+          <input name="name" placeholder="Full Name" required />
+          <input name="email" type="email" placeholder="Email" required />
+          <input name="password" type="password" placeholder="Password" required />
+
+          <select name="role" required>
+            <option value="">Select Designation</option>
+            <option value="warden">Warden</option>
+            <option value="advisor">Advisor</option>
+            <option value="hod">HOD</option>
+            <option value="dean">Dean</option>
+          </select>
+
+          <button class="btn-primary">Create Authority</button>
+        </form>
+      </div>
+
+      <div class="authority-remove">
+        <div class="form-card remove-card">
+          <h3>Remove Authority</h3>
+          <p class="muted-text">
+            Select an authority from the table below to remove.
+          </p>
+
+          <div class="remove-placeholder">
+            🗑 Removal actions will appear here
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="authority-table-wrapper">
+      <div class="table-card">
+
+        <h3>Existing Authorities</h3>
+
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Designation</th>
+          </tr>
+
+          <% authorities.forEach(a => { %>
+            <tr>
+              <td><%= a.name %></td>
+              <td><%= a.email %></td>
+              <td><%= a.role.toUpperCase() %></td>
+            </tr>
+          <% }) %>
+
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

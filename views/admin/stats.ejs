@@ -1,0 +1,39 @@
+<%- include('../partials/head', { title: 'Admin Stats' }) %>
+
+<div class="layout">
+  <%- include('../partials/sidebar', { user, active: 'stats' }) %>
+
+
+  <main class="main">
+
+    <div class="page-header">
+      <h1>System Statistics</h1>
+      <p>Overview of issue activity across the campus</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h2><%= stats.total %></h2>
+        <p>Issues Raised</p>
+      </div>
+
+      <div class="stat-card blue">
+        <h2><%= stats.pending %></h2>
+        <p>Pending</p>
+      </div>
+
+      <div class="stat-card green">
+        <h2><%= stats.approved %></h2>
+        <p>Approved</p>
+      </div>
+
+      <div class="stat-card red">
+        <h2><%= stats.rejected %></h2>
+        <p>Rejected</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

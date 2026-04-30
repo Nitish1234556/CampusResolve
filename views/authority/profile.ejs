@@ -1,0 +1,133 @@
+<%- include('../partials/head', { title: 'Authority Profile' }) %>
+
+<div class="dashboard">
+  <%- include('../partials/sidebar', { user, active: 'profile' }) %>
+
+  <main class="main-content profile-page">
+
+```
+<!-- PAGE TITLE -->
+<div class="page-header">
+  <h1>My Profile</h1>
+  <p>Authority account information and issue management access</p>
+</div>
+
+<!-- PROFILE TOP -->
+<section class="profile-top">
+
+  <!-- LEFT : PROFILE CARD -->
+  <div class="profile-card-main">
+
+    <div class="profile-avatar authority-avatar">
+      <span><%= user.name.charAt(0).toUpperCase() %></span>
+    </div>
+
+    <h2><%= user.name %></h2>
+    <p class="role authority-role">
+      <%= user.role.toUpperCase() %>
+    </p>
+
+    <div class="profile-meta">
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p><strong>System Role:</strong> <%= user.role.toUpperCase() %></p>
+    </div>
+
+    <div class="profile-actions">
+      <a href="#" class="btn-secondary">Change Password</a>
+      <a href="/logout" class="btn-danger">Logout</a>
+    </div>
+
+  </div>
+
+  <!-- RIGHT : ACCOUNT INFO -->
+  <div class="profile-info-card">
+
+    <h3>Account Information</h3>
+
+    <div class="info-row">
+      <span>Email</span>
+      <span><%= user.email %></span>
+    </div>
+
+    <div class="info-row">
+      <span>Role</span>
+      <span><%= user.role.toUpperCase() %></span>
+    </div>
+
+    <div class="info-row">
+      <span>Account Created On</span>
+      <span>
+        <%= new Date(user.createdAt || Date.now()).toDateString() %>
+      </span>
+    </div>
+
+    <div class="info-row">
+      <span>Account Status</span>
+      <span class="status-active">Active</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- AUTHORITY STATS -->
+<section class="profile-stats">
+
+  <div class="stat-box">
+    <h3>📌 Issues Assigned</h3>
+    <p>--</p>
+  </div>
+
+  <div class="stat-box">
+    <h3>⏳ Pending Reviews</h3>
+    <p>--</p>
+  </div>
+
+  <div class="stat-box">
+    <h3>➜ Forwarded Cases</h3>
+    <p>--</p>
+  </div>
+
+  <div class="stat-box">
+    <h3>✅ Resolved Issues</h3>
+    <p>--</p>
+  </div>
+
+</section>
+
+
+<!-- RECENT ACTIVITY -->
+<section class="profile-activity">
+
+  <h3>Recent Authority Activity</h3>
+
+  <ul class="activity-list">
+
+    <li>
+      <span class="dot"></span>
+      Reviewed an assigned issue
+      <small>Today</small>
+    </li>
+
+    <li>
+      <span class="dot"></span>
+      Forwarded issue to higher authority
+      <small>1 day ago</small>
+    </li>
+
+    <li>
+      <span class="dot"></span>
+      Approved resolution with remarks
+      <small>2 days ago</small>
+    </li>
+
+  </ul>
+
+</section>
+```
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

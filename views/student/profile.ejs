@@ -1,0 +1,114 @@
+<%- include('../partials/head', { title: 'My Profile' }) %>
+
+<div class="dashboard">
+  <%- include('../partials/sidebar', { user, active: 'profile' }) %>
+
+  <main class="main-content profile-page">
+
+    <!-- PAGE TITLE -->
+    <div class="page-header">
+      <h1>My Profile</h1>
+      <p>Manage your account information and view your activity</p>
+    </div>
+
+    <!-- PROFILE TOP -->
+    <section class="profile-top">
+
+      <!-- LEFT : PROFILE CARD -->
+      <div class="profile-card-main">
+        <div class="profile-avatar">
+          <span><%= user.name.charAt(0).toUpperCase() %></span>
+        </div>
+
+        <h2><%= user.name %></h2>
+        <p class="role">Student</p>
+
+        <div class="profile-meta">
+          <p><strong>College:</strong> <%= user.college || 'Not specified' %></p>
+          <p><strong>Department:</strong> <%= user.department || 'Not specified' %></p>
+        </div>
+
+        <div class="profile-actions">
+          <a href="#" class="btn-secondary">Edit Profile</a>
+          <a href="#" class="btn-secondary">Change Password</a>
+          <a href="/logout" class="btn-danger">Logout</a>
+        </div>
+      </div>
+
+      <!-- RIGHT : ACCOUNT INFO -->
+      <div class="profile-info-card">
+        <h3>Account Information</h3>
+
+        <div class="info-row">
+          <span>Email</span>
+          <span><%= user.email %></span>
+        </div>
+
+        <div class="info-row">
+          <span>Role</span>
+          <span>Student</span>
+        </div>
+
+        <div class="info-row">
+          <span>Account Created On</span>
+          <span><%= new Date(user.createdAt || Date.now()).toDateString() %></span>
+        </div>
+
+        <div class="info-row">
+          <span>Account Status</span>
+          <span class="status-active">Active</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- STATS -->
+    <section class="profile-stats">
+      <div class="stat-box">
+        <h3>📌 Total Issues</h3>
+        <p>--</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>⏳ Pending</h3>
+        <p>--</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>✅ Resolved</h3>
+        <p>--</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>🕒 Avg Resolution</h3>
+        <p>--</p>
+      </div>
+    </section>
+
+    <!-- RECENT ACTIVITY -->
+    <section class="profile-activity">
+      <h3>Recent Activity</h3>
+
+      <ul class="activity-list">
+        <li>
+          <span class="dot"></span>
+          Issue raised: Hostel water supply problem
+          <small>2 days ago</small>
+        </li>
+        <li>
+          <span class="dot"></span>
+          Issue forwarded to Warden
+          <small>1 day ago</small>
+        </li>
+        <li>
+          <span class="dot"></span>
+          Issue resolved successfully
+          <small>Today</small>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

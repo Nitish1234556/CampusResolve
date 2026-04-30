@@ -1,0 +1,79 @@
+<%- include('../partials/head', { title: 'Authority Dashboard' }) %>
+
+<div class="dashboard">
+  <%- include('../partials/sidebar', { user, active: 'home' }) %>
+
+  <main class="main-content student-home">
+
+```
+<!-- HERO -->
+<section class="hero-card">
+  <div class="hero-text">
+    <span class="hero-date"><%= new Date().toDateString() %></span>
+    <h1>Welcome, <%= user.name %> 👋</h1>
+    <p>Review and resolve campus issues assigned to your authority.</p>
+  </div>
+
+  <div class="hero-avatar">🏛️</div>
+</section>
+
+<!-- STATS -->
+<section class="stats-row unified-stats">
+  <div class="stat-box">
+    <span>📥</span>
+    <h3>Issues Assigned</h3>
+    <p>Check your inbox</p>
+  </div>
+
+  <div class="stat-box">
+    <span>⏳</span>
+    <h3>Pending Actions</h3>
+    <p>Awaiting your review</p>
+  </div>
+
+  <div class="stat-box">
+    <span>✅</span>
+    <h3>Resolved Issues</h3>
+    <p>Handled by you</p>
+  </div>
+</section>
+
+<!-- INTRO CARD -->
+<section class="intro-card">
+  <h2>Authority Responsibilities</h2>
+
+  <p>
+    CampusResolve empowers campus authorities to investigate,
+    evaluate, and resolve issues raised by students in a transparent
+    and structured manner.
+  </p>
+
+  <p>
+    Issues forwarded to your authority require careful review,
+    communication when necessary, and a documented resolution
+    through approval or rejection.
+  </p>
+
+  <p>
+    Every action you take is recorded in the issue timeline,
+    ensuring accountability and maintaining a clear history
+    of the decision-making process.
+  </p>
+</section>
+
+<!-- ACTION BUTTONS -->
+<section class="action-buttons">
+  <a href="/authority/inbox" class="action-btn primary">
+    📥 Open Inbox
+  </a>
+
+  <a href="/authority/stats" class="action-btn secondary">
+    📊 View Statistics
+  </a>
+</section>
+```
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

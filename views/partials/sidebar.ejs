@@ -1,0 +1,116 @@
+<% const current = typeof active !== 'undefined' ? active : ''; %>
+
+<aside class="sidebar">
+
+  <!-- LOGO -->
+  <div class="sidebar-logo">
+    <h2>CampusResolve</h2>
+  </div>
+
+  <nav class="sidebar-menu">
+
+    <!-- ================= STUDENT ================= -->
+    <% if (user && user.role === 'student') { %>
+
+      <a href="/student/home" class="<%= current === 'home' ? 'active' : '' %>">
+        <i class="ri-home-4-line"></i> Home
+      </a>
+
+      <a href="/student/issues" class="<%= current === 'issues' ? 'active' : '' %>">
+        <i class="ri-folder-line"></i> My Issues
+      </a>
+
+      <a href="/issues/new" class="<%= current === 'raise' ? 'active' : '' %>">
+        <i class="ri-add-circle-line"></i> Raise Issue
+      </a>
+
+      <a href="/issues/announcements" class="<%= current === 'announcements' ? 'active' : '' %>">
+        <i class="ri-megaphone-line"></i> Announcements
+      </a>
+
+      <a href="/issues/notifications" class="notification-link <%= current === 'notifications' ? 'active' : '' %>">
+
+        <div class="notification-icon">
+
+          <i class="ri-notification-3-line"></i>
+
+          <% if(notificationCount > 0){ %>
+            <span class="notification-badge"><%= notificationCount %></span>
+          <% } %>
+
+        </div>
+
+        Notifications
+
+      </a>
+
+      <a href="/student/profile" class="<%= current === 'profile' ? 'active' : '' %>">
+        <i class="ri-user-line"></i> Profile
+      </a>
+
+    <% } %>
+
+
+    <!-- ================= ADMIN ================= -->
+    <% if (user && user.role === 'admin') { %>
+
+      <a href="/admin/home" class="<%= current === 'home' ? 'active' : '' %>">
+        <i class="ri-home-4-line"></i> Home
+      </a>
+
+      <a href="/admin/inbox" class="<%= current === 'inbox' ? 'active' : '' %>">
+        <i class="ri-inbox-line"></i> Inbox
+      </a>
+
+      <a href="/admin/stats" class="<%= current === 'stats' ? 'active' : '' %>">
+        <i class="ri-bar-chart-line"></i> Statistics
+      </a>
+
+      <a href="/admin/manage-authorities" class="<%= current === 'authorities' ? 'active' : '' %>">
+        <i class="ri-user-settings-line"></i> Manage Authorities
+      </a>
+
+      <a href="/admin/announcements" class="<%= current === 'announcements' ? 'active' : '' %>">
+        <i class="ri-megaphone-line"></i> Announcements
+      </a>
+      <a href="/admin/profile" class="<%= current === 'profile' ? 'active' : '' %>">
+        <i class="ri-user-line"></i> Profile
+      </a>
+
+    <% } %>
+
+
+    <!-- ================= AUTHORITY (FUTURE READY) ================= -->
+    <% if (user && ['warden','advisor','hod','dean'].includes(user.role)) { %>
+
+      <a href="/authority/home" class="<%= current === 'home' ? 'active' : '' %>">
+        <i class="ri-home-4-line"></i> Home
+      </a>
+
+      <a href="/authority/inbox" class="<%= current === 'inbox' ? 'active' : '' %>">
+        <i class="ri-inbox-line"></i> Inbox
+      </a>
+
+      <a href="/authority/announcements" class="<%= current === 'announcements' ? 'active' : '' %>">
+        <i class="ri-megaphone-line"></i> Announcements
+      </a>
+
+      <a href="/authority/stats" class="<%= current === 'stats' ? 'active' : '' %>">
+        <i class="ri-bar-chart-line"></i> Statistics
+      </a>
+
+      <a href="/authority/profile" class="<%= current === 'profile' ? 'active' : '' %>">
+        <i class="ri-user-line"></i> Profile
+      </a>
+
+    <% } %>
+
+  </nav>
+
+  <!-- FOOTER -->
+  <div class="sidebar-footer">
+    <p><%= user.name %></p>
+    <a href="/logout" class="logout-btn">Logout</a>
+  </div>
+
+</aside>

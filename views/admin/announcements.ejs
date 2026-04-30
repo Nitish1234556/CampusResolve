@@ -1,0 +1,13 @@
+<%- include('../partials/head', { title: 'Announcements' }) %>
+<div class="layout">
+  <%- include('../partials/sidebar', { user, active: 'announcements' }) %>
+
+  <main class="main">
+    <div class="empty-state">
+      <i class="ri-megaphone-line"></i>
+      <h3>No Announcements</h3>
+      <p>Administrative announcements will appear here.</p>
+    </div>
+  </main>
+</div>
+<%- include('../partials/footer') %>

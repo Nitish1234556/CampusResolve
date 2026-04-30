@@ -1,0 +1,78 @@
+<%- include('../partials/head', { title: 'Admin Dashboard' }) %>
+
+<div class="dashboard">
+  <%- include('../partials/sidebar', { user, active: 'home' }) %>
+
+  <main class="main-content student-home">
+
+    <!-- HERO -->
+    <section class="hero-card">
+      <div class="hero-text">
+        <span class="hero-date"><%= new Date().toDateString() %></span>
+        <h1>Welcome, <%= user.name %> 👋</h1>
+        <p>Manage and monitor campus-wide issues efficiently.</p>
+      </div>
+
+      <div class="hero-avatar">🛡️</div>
+    </section>
+
+    <!-- STATS (STATIC / SAFE) -->
+    <section class="stats-row unified-stats">
+      <div class="stat-box">
+        <span>📊</span>
+        <h3>Total Issues</h3>
+        <p>View in Statistics</p>
+      </div>
+
+      <div class="stat-box">
+        <span>⏳</span>
+        <h3>Pending Issues</h3>
+        <p>Check Inbox</p>
+      </div>
+
+      <div class="stat-box">
+        <span>✅</span>
+        <h3>Resolved Issues</h3>
+        <p>Tracked System-wide</p>
+      </div>
+    </section>
+
+    <!-- INTRO CARD -->
+    <section class="intro-card">
+      <h2>Administrator Overview</h2>
+
+      <p>
+        CampusResolve provides administrators with a centralized platform to
+        review, validate, and manage student grievances across the campus.
+        Every issue submitted by students is routed through the admin panel
+        to ensure authenticity and proper handling.
+      </p>
+
+      <p>
+        As an administrator, you act as the control point between students
+        and campus authorities. Your decisions directly affect how quickly
+        and accurately issues are resolved.
+      </p>
+
+      <p>
+        By maintaining transparency, structured routing, and accountability,
+        CampusResolve ensures a reliable and efficient grievance redressal
+        system for the entire institution.
+      </p>
+    </section>
+
+    <!-- ACTION BUTTONS -->
+    <section class="action-buttons">
+      <a href="/admin/inbox" class="action-btn primary">
+        📥 Open Inbox
+      </a>
+
+      <a href="/admin/stats" class="action-btn secondary">
+        📊 View Statistics
+      </a>
+    </section>
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

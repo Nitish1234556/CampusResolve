@@ -1,0 +1,111 @@
+<%- include('../partials/head', { title: 'Authority Dashboard' }) %>
+
+<div class="layout">
+  <%- include('../partials/sidebar', { user }) %>
+
+  <main class="main">
+
+    <!-- HEADER -->
+    <div class="page-header">
+      <h1>Authority Dashboard</h1>
+      <p>Issues assigned to you</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <h2><%= stats.total %></h2>
+        <p>Total Assigned</p>
+      </div>
+
+      <div class="stat-card blue">
+        <h2><%= stats.pending %></h2>
+        <p>Pending</p>
+      </div>
+
+      <div class="stat-card green">
+        <h2><%= stats.approved %></h2>
+        <p>Approved</p>
+      </div>
+
+      <div class="stat-card red">
+        <h2><%= stats.rejected %></h2>
+        <p>Rejected</p>
+      </div>
+
+    </div>
+
+    <!-- ISSUES -->
+    <div class="page-header" style="margin-top:30px;">
+      <h2>Assigned Issues</h2>
+      <p>Take action on issues forwarded to you</p>
+    </div>
+
+    <div class="issue-list">
+
+      <% if (issues.length === 0) { %>
+        <p>No issues assigned.</p>
+      <% } %>
+
+      <% issues.forEach(issue => { %>
+        <div class="issue-card">
+
+          <div class="issue-left">
+
+            <div class="issue-title">
+              <h3><%= issue.category %></h3>
+              <span class="status submitted">Forwarded</span>
+            </div>
+
+            <p class="issue-desc"><%= issue.description %></p>
+
+            <div class="issue-meta">
+              <span><strong>By:</strong> <%= issue.studentName %></span>
+              <span class="dot">•</span>
+              <span class="priority <%= issue.priority.toLowerCase() %>">
+                <%= issue.priority %>
+              </span>
+            </div>
+
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="issue-actions">
+
+            <!-- APPROVE -->
+            <form method="POST" action="/authority/issue/<%= issue._id %>/approve">
+              <button class="btn-approve">✔ Approve</button>
+            </form>
+
+            <!-- REJECT -->
+            <form method="POST" action="/authority/issue/<%= issue._id %>/reject">
+              <button class="btn-reject">✖ Reject</button>
+            </form>
+
+            <!-- FORWARD -->
+            <form method="POST" action="/authority/issue/<%= issue._id %>/forward">
+              <select name="authority" required>
+                <option value="">Forward to</option>
+                <% authorities.forEach(auth => { %>
+                  <% if (auth.role !== user.role) { %>
+                    <option value="<%= auth.role %>">
+                      <%= auth.role.toUpperCase() %>
+                    </option>
+                  <% } %>
+                <% }) %>
+              </select>
+              <button class="btn-approve">➜ Forward</button>
+            </form>
+
+          </div>
+
+        </div>
+      <% }) %>
+
+    </div>
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

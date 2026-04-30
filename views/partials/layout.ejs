@@ -1,0 +1,11 @@
+<%- include('./head', { title }) %>
+
+<div class="dashboard">
+  <%- include('./sidebar', { user }) %>
+
+  <main class="main-content">
+    <%- body %>
+  </main>
+</div>
+
+<%- include('./footer') %>

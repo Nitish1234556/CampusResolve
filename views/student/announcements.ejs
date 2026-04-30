@@ -1,0 +1,39 @@
+<%- include('../partials/layout', {
+  title: 'Announcements',
+  user,
+  body: `
+    <h1>📢 Announcements</h1>
+
+    ${(!announcements || announcements.length === 0) ? `
+      <div class="empty-state">
+        <i class="ri-megaphone-line"></i>
+        <h3>No Announcements</h3>
+      </div>
+    ` : ''}
+
+    ${(announcements || []).map(a => `
+      <div class="announcement-card">
+
+        <div class="announcement-left">
+          <h3>${a.title}</h3>
+
+          <div class="announcement-meta">
+            By <strong>${a.authorName}</strong>
+            <span class="announcement-role">${a.authorRole}</span>
+          </div>
+
+          <div class="announcement-date">
+            ${new Date(a.createdAt).toDateString()}
+          </div>
+        </div>
+
+        <div class="announcement-actions">
+          <a href="/issues/announcements/${a._id}" class="btn-secondary">
+            View Details
+          </a>
+        </div>
+
+      </div>
+    `).join('')}
+  `
+}) %>

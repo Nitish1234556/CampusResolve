@@ -1,0 +1,80 @@
+<%- include('../partials/head', { title: 'Student Dashboard' }) %>
+
+<div class="dashboard">
+  <%- include('../partials/sidebar', { user, active: 'home' }) %>
+
+  <main class="main-content student-home">
+
+    <!-- HERO -->
+    <section class="hero-card">
+      <div class="hero-text">
+        <span class="hero-date"><%= new Date().toDateString() %></span>
+        <h1>Welcome back, <%= user.name %> 👋</h1>
+        <p>Track your campus issues easily.</p>
+      </div>
+
+      <div class="hero-avatar">🎓</div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-row unified-stats">
+      <div class="stat-box">
+        <span>📌</span>
+        <h3>Total Issues</h3>
+        <p>--</p>
+      </div>
+
+      <div class="stat-box">
+        <span>⏳</span>
+        <h3>Pending Issues</h3>
+        <p>--</p>
+      </div>
+
+      <div class="stat-box">
+        <span>✅</span>
+        <h3>Resolved Issues</h3>
+        <p>--</p>
+      </div>
+    </section>
+
+    <!-- INTRO CARD -->
+    <section class="intro-card">
+      <h2>About CampusResolve</h2>
+
+        <p>
+          CampusResolve is a transparent issue resolution platform designed to bridge
+          the communication gap between students and campus authorities. It provides
+          a structured way for students to raise concerns related to academics,
+          hostel facilities, laboratories, infrastructure, and other campus services.
+        </p>
+
+        <p>
+          Instead of relying on informal channels or unanswered messages, CampusResolve
+          ensures that every issue is officially recorded, assigned to the appropriate
+          authority, and tracked through each stage of resolution. Students can view
+          real-time status updates, remarks, and actions taken on their submitted issues.
+        </p>
+
+        <p>
+          By promoting accountability, clarity, and timely responses, CampusResolve
+          helps create a more responsive and efficient campus environment—where
+          student voices are heard and resolved in a transparent and organized manner.
+        </p>
+
+    </section>
+
+    <!-- ACTION BUTTONS -->
+    <section class="action-buttons">
+      <a href="/issues/new" class="action-btn primary">
+        ➕ Raise Issue
+      </a>
+
+      <a href="/student/issues" class="action-btn secondary">
+        📂 My Issues
+      </a>
+    </section>
+
+  </main>
+</div>
+
+<%- include('../partials/footer') %>

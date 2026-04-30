@@ -1,0 +1,56 @@
+<%- include('../partials/layout', {
+  title: 'My Issues',
+  user,
+  active: 'issues',
+  body: `
+    <div class="page-header">
+      <h1>My Issues</h1>
+      <p>Track all issues you have raised and their current status</p>
+    </div>
+
+    ${issues.length === 0 ? `
+      <div class="empty-state">
+        <i class="ri-folder-warning-line"></i>
+        <h3>No Issues Found</h3>
+        <p>You haven’t raised any issues yet.</p>
+        <a href="/issues/new" class="btn-primary" style="margin-top:14px;">
+          Raise Your First Issue
+        </a>
+      </div>
+    ` : ''}
+
+    ${issues.map(issue => `
+      <div class="issue-card compact">
+
+        <div class="issue-left">
+          <h3 class="issue-heading">
+            ${issue.title || issue.category}
+          </h3>
+
+          <div class="issue-tags">
+            <span class="tag category">${issue.category}</span>
+
+            <span class="tag status ${issue.status.toLowerCase()}">
+              ${issue.status}
+            </span>
+
+            <span class="tag handler">
+              Currently with: <strong>${issue.currentHandler}</strong>
+            </span>
+          </div>
+
+          <div class="issue-meta">
+            Created on ${new Date(issue.createdAt).toDateString()}
+          </div>
+        </div>
+
+        <div class="issue-actions">
+          <a href="/issues/${issue._id}" class="btn-secondary">
+            View Details
+          </a>
+        </div>
+
+      </div>
+    `).join('')}
+  `
+}) %>
