@@ -25,7 +25,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+const fs = require("fs");
+
+const uploadDir = path.join(__dirname, "public/uploads");
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 
 app.use(
   session({
